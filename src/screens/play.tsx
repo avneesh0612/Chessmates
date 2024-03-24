@@ -65,14 +65,14 @@ export const play = async (
                       <p key={move}>{move},</p>
                     ))}
                 </div>
-                <div tw="flex -my-[2rem]">
+                {/* <div tw="flex -my-[2rem]">
                   {chess
                     .moves()
                     .slice(5, 10)
                     .map((move) => (
                       <p key={move}>{move},</p>
                     ))}
-                </div>{" "}
+                </div>{" "} */}
                 <div tw="flex -my-[2rem]">
                   {chess
                     .moves()
