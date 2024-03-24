@@ -358,7 +358,7 @@ export default async function Home({ searchParams }: NextServerPageProps) {
                     }}
                     tw="w-full h-full text-white justify-center items-center flex flex-col"
                   >
-                    <div tw="flex flex-row">
+                    <div tw="flex flex-row max-w-[80%] text-center text-[2rem]">
                       You need a wallet address to join the {team} team.
                       Don&apos;t have one? Create one using your email
                     </div>
