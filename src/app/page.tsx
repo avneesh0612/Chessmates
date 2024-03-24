@@ -153,15 +153,6 @@ export default async function Home({ searchParams }: NextServerPageProps) {
       }
 
       if (page === "leaderboard") {
-        // const boldFont = fetch(
-        //   new URL(
-        //     "https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap",
-        //     import.meta.url
-        //   )
-        // ).then((res) => res.arrayBuffer());
-
-        // const [boldFontData] = await Promise.all([boldFont]);
-
         const { image, button1, button2 } = await leaderboard();
 
         return (
@@ -172,20 +163,7 @@ export default async function Home({ searchParams }: NextServerPageProps) {
             previousFrame={previousFrame}
             accepts={acceptedProtocols}
           >
-            <FrameImage
-              aspectRatio="1.91:1"
-              // options={{
-              //   height: 1080,
-              //   fonts: [
-              //     {
-              //       data: boldFontData,
-              //       name: "Inter",
-              //     },
-              //   ],
-              // }}
-            >
-              {image}
-            </FrameImage>
+            <FrameImage aspectRatio="1.91:1">{image}</FrameImage>
 
             {button1}
             {button2}
@@ -387,7 +365,7 @@ export default async function Home({ searchParams }: NextServerPageProps) {
               },
             });
 
-            // await mintNFT(fid!, address);
+            await mintNFT(fid!, address);
 
             if (previousFrame.postBody) {
               const custom_id = `${team}-join`;
