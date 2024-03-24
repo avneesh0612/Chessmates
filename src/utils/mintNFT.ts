@@ -1,6 +1,6 @@
 export const mintNFT = async (fid: number, address: string) => {
   const crossmintURL = `https://${process.env.CROSSMINT_ENV}.crossmint.com/api/2022-06-09/collections/${process.env.CROSSMINT_COLLECTION_ID}/nfts/${fid}`;
-  const addressC = `base:${address}`;
+  const addressC = `base-sepolia:${address}`;
 
   const options = {
     method: "PUT",
