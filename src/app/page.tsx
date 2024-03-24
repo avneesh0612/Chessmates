@@ -365,7 +365,7 @@ export default async function Home({ searchParams }: NextServerPageProps) {
               },
             });
 
-            await mintNFT(fid!, address);
+            // await mintNFT(fid!, address);
 
             if (previousFrame.postBody) {
               const custom_id = `${team}-join`;
