@@ -219,7 +219,6 @@ export default async function Home({ searchParams }: NextServerPageProps) {
           });
 
           const chess = new Chess(game.fen || undefined);
-          const toPlay = chess.turn() === "w" ? "white" : "black";
 
           if (vote) {
             const votes = await votesScreen(game, vote, chess);
@@ -365,7 +364,7 @@ export default async function Home({ searchParams }: NextServerPageProps) {
               },
             });
 
-            await mintNFT(fid!, address);
+            // await mintNFT(fid!, address);
 
             if (previousFrame.postBody) {
               const custom_id = `${team}-join`;
