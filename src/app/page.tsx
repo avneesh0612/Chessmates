@@ -194,20 +194,20 @@ export default async function Home({ searchParams }: NextServerPageProps) {
         let team = searchParams?.team as string;
 
         if (user) {
+          console.log("finding game");
           let game = await prisma.game.findFirst({
             where: {
               completed: false,
             },
           });
 
+          console.log("game found");
+
           if (!game) {
-            game = await prisma.game.create({
-              data: {
-                completed: false,
-                fen: "",
-              },
-            });
+            return;
           }
+
+          console.log("finding vote");
 
           const vote = await prisma.vote.findFirst({
             where: {
@@ -217,6 +217,8 @@ export default async function Home({ searchParams }: NextServerPageProps) {
               success: false,
             },
           });
+
+          console.log("vote found");
 
           const chess = new Chess(game.fen || undefined);
 
@@ -243,7 +245,7 @@ export default async function Home({ searchParams }: NextServerPageProps) {
             );
           }
 
-          const { image, input, button } = await play(frameMessage, user);
+          const { image, input, button } = await play(frameMessage, user, game);
 
           return (
             <div className="p-4">

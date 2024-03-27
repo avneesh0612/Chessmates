@@ -3,21 +3,28 @@ import { Chess } from "chess.js";
 import { FrameButton, FrameInput } from "frames.js/next/server";
 import { FrameActionDataParsedAndHubContext } from "node_modules/frames.js/dist/types";
 import { votesScreen } from "./votes";
-import { User } from "@prisma/client";
+import { Game, User } from "@prisma/client";
 import { FenImgGenerator } from "@/lib/fen-image-generator";
 
 export const play = async (
   frameMessage: FrameActionDataParsedAndHubContext | null,
-  user: User | null
+  user: User | null,
+  gameP?: Game
 ) => {
   let valid = false;
   const move = frameMessage?.inputText;
+  let game = gameP;
 
-  const game = await prisma.game.findFirst({
-    where: {
-      completed: false,
-    },
-  });
+  console.log("finding game");
+
+  if (!game) {
+    // @ts-ignore
+    game = await prisma.game.findFirst({
+      where: {
+        completed: false,
+      },
+    });
+  }
 
   if (!game) {
     throw new Error("No game found");
@@ -29,7 +36,10 @@ export const play = async (
     (chess.turn() === "w" && user?.team === "white") ||
     (chess.turn() === "b" && user?.team === "black");
 
+  console.log("generating image");
+
   const svg = new FenImgGenerator().generate(chess.fen());
+  console.log("image generated");
 
   if (!move) {
     const info = {
@@ -113,6 +123,7 @@ export const play = async (
     return info;
   }
 
+  console.log("finding vote");
   const vote1 = await prisma.vote.findFirst({
     where: {
       userId: String(frameMessage?.requesterFid),
@@ -121,6 +132,8 @@ export const play = async (
       success: false,
     },
   });
+
+  console.log("vote found");
 
   if (move) {
     try {
