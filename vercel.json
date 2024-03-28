@@ -1,11 +1,11 @@
 {
   "crons": [
     {
-      "path": "/cron",
+      "path": "/cron/move",
       "schedule": "*/10 * * * *"
     },
     {
-      "path": "/update-nfts",
+      "path": "/cron/update-nfts",
       "schedule": "0 0 * * *"
     }
   ]

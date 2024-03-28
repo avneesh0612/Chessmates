@@ -1,30 +1,33 @@
+import { HomeButton, PlayButton } from "@/components/Buttons";
+import { HOST } from "@/consts";
 import { fdk } from "@/lib/fdk";
 import prisma from "@/lib/prisma";
-import { FrameButton } from "frames.js/next/server";
+import { createFrames } from "frames.js/next";
 
-export const leaderboard = async () => {
-  const users = await prisma.user.findMany({
-    orderBy: {
-      points: "desc",
-    },
-    take: 10,
-  });
+const users = await prisma.user.findMany({
+  orderBy: {
+    points: "desc",
+  },
+  take: 10,
+});
 
-  const promises = users.map(async (user) => {
-    const username = (await fdk.getUserByFid(Number(user?.fid))).username;
-    return {
-      ...user,
-      username,
-    };
-  });
+const promises = users.map(async (user) => {
+  const username = (await fdk.getUserByFid(Number(user?.fid))).username;
+  return {
+    ...user,
+    username,
+  };
+});
 
-  const newList = await Promise.all(promises);
+const newList = await Promise.all(promises);
+const frames = createFrames();
 
+const handleRequest = frames(async () => {
   return {
     image: (
       <div
         style={{
-          backgroundImage: `url(${process.env.NEXT_PUBLIC_HOST}/bg.jpg)`,
+          backgroundImage: `url(${HOST}/bg.jpg)`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           color: "white",
@@ -65,16 +68,9 @@ export const leaderboard = async () => {
         </div>
       </div>
     ),
-    input: null,
-    button1: (
-      <FrameButton action="post" target="/frames">
-        Home
-      </FrameButton>
-    ),
-    button2: (
-      <FrameButton action="post" target="/frames?page=start">
-        Play
-      </FrameButton>
-    ),
+    buttons: [HomeButton, PlayButton],
   };
-};
+});
+
+export const GET = handleRequest;
+export const POST = handleRequest;

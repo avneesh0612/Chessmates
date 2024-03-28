@@ -1,10 +1,16 @@
+import { HomeButton, PlayButton } from "@/components/Buttons";
+import { HOST } from "@/consts";
 import { fdk } from "@/lib/fdk";
 import prisma from "@/lib/prisma";
-import { FrameButton } from "frames.js/next/server";
+import { frameMiddleWares } from "@/middleware/frameMiddlewares";
+import { createFrames } from "frames.js/next";
 
-export const profile = async (fid: number) => {
-  const user = await fdk.getUserByFid(fid);
-
+const frames = createFrames({
+  middleware: frameMiddleWares,
+});
+const handleRequest = frames(async (frameActionPayload) => {
+  const fid = frameActionPayload.message?.requesterFid;
+  const user = await fdk.getUserByFid(fid!);
   const userData = await prisma.user.findUnique({
     where: {
       fid: String(fid),
@@ -15,7 +21,7 @@ export const profile = async (fid: number) => {
     image: (
       <div
         style={{
-          backgroundImage: `url(${process.env.NEXT_PUBLIC_HOST}/bg.jpg)`,
+          backgroundImage: `url(${HOST}/bg.jpg)`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           color: "white",
@@ -55,16 +61,9 @@ export const profile = async (fid: number) => {
         </div>
       </div>
     ),
-    input: null,
-    button1: (
-      <FrameButton action="post" target="/frames">
-        Home
-      </FrameButton>
-    ),
-    button2: (
-      <FrameButton action="post" target="/frames?page=start">
-        Play
-      </FrameButton>
-    ),
+    buttons: [HomeButton, PlayButton],
   };
-};
+});
+
+export const GET = handleRequest;
+export const POST = handleRequest;
