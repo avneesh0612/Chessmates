@@ -3,7 +3,7 @@ import { HOST } from "@/consts";
 import { FenImgGenerator } from "@/lib/fen-image-generator";
 import prisma from "@/lib/prisma";
 import { play } from "@/screens/play";
-import { createEmbeddedWallet } from "../../utils/createEmbeddedWallet";
+import { createEmbeddedWallet } from "@/utils/createEmbeddedWallet";
 import { mintNFT } from "@/utils/mintNFT";
 import { ChainEnum } from "@dynamic-labs/sdk-api/models/ChainEnum";
 import { Chess } from "chess.js";
