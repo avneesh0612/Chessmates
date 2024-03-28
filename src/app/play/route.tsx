@@ -117,7 +117,7 @@ const handleRequest = frames(async (payload) => {
             buttons: [
               <Button
                 action="post"
-                target={`/play?team=${team}&address=${newWallets![0]}`}
+                target={`${HOST}/play?team=${team}&address=${newWallets![0]}`}
                 key="confirm"
               >
                 Continue
@@ -152,7 +152,11 @@ const handleRequest = frames(async (payload) => {
           ),
           textInput: "Enter your email",
           buttons: [
-            <Button action="post" target={`/play?&team=${team}`} key="create">
+            <Button
+              action="post"
+              target={`${HOST}/play?&team=${team}`}
+              key="create"
+            >
               Create wallet
             </Button>,
           ],
@@ -244,10 +248,10 @@ const handleRequest = frames(async (payload) => {
       ),
 
       buttons: [
-        <Button action="post" target="/play?team=white" key="white">
+        <Button action="post" target={`${HOST}/play?team=white`} key="white">
           White
         </Button>,
-        <Button action="post" target="/play?team=black" key="black">
+        <Button action="post" target={`${HOST}/play?team=black`} key="black">
           Black
         </Button>,
       ],

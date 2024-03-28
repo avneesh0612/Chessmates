@@ -99,7 +99,7 @@ export const play = async (user: User | null, gameP?: Game) => {
     ),
     textInput: turn && "Move (eg-Ne7)",
     button: turn ? (
-      <Button action="post" target="/vote" key="vote">
+      <Button action="post" target={`${HOST}/vote`} key="vote">
         Vote
       </Button>
     ) : (

@@ -109,7 +109,7 @@ const handleRequest = frames(async (payload) => {
       ),
       textInput: "Move (eg-Ne7)",
       buttons: [
-        <Button action="post" target="/vote" key="vote">
+        <Button action="post" target={`${HOST}/vote`} key="vote">
           Vote
         </Button>,
       ],
