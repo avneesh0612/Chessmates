@@ -61,7 +61,7 @@ const handleRequest = frames(async (frameActionPayload) => {
         </div>
       </div>
     ),
-    buttons: [<HomeButton key="home" />, <PlayButton key="play" />],
+    buttons: [HomeButton, PlayButton],
   };
 });
 

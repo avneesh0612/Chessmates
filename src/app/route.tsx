@@ -15,12 +15,7 @@ const frames = createFrames({
 const handleRequest = frames(async () => {
   return {
     image: `${HOST}/chessmates.png`,
-    buttons: [
-      <PlayButton key="play" />,
-      <InfoButton key="info" />,
-      <LeaderboardButton key="leaderboard" />,
-      <ProfileButton key="profile" />,
-    ],
+    buttons: [PlayButton, InfoButton, LeaderboardButton, ProfileButton],
   };
 });
 

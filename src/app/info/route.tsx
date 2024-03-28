@@ -6,7 +6,7 @@ const frames = createFrames();
 const handleRequest = frames(async () => {
   return {
     image: `${HOST}/info.png`,
-    buttons: [<HomeButton key="home" />, <PlayButton key="play" />],
+    buttons: [HomeButton, PlayButton],
   };
 });
 

@@ -1,7 +1,6 @@
 import { HomeButton } from "@/components/Buttons";
 import { FenImgGenerator } from "@/lib/fen-image-generator";
 import { Chess } from "chess.js";
-import { Button } from "frames.js/next";
 
 export const votesScreen = async (
   game: { id: string },
@@ -70,7 +69,7 @@ export const votesScreen = async (
         </div>
       </div>
     ),
-    input: null,
-    button: <HomeButton key="home" />,
+    textInput: undefined,
+    buttons: [HomeButton],
   };
 };

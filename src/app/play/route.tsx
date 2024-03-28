@@ -9,7 +9,6 @@ import { ChainEnum } from "@dynamic-labs/sdk-api/models/ChainEnum";
 import { Chess } from "chess.js";
 import { getAddressForFid } from "frames.js";
 import { Button, createFrames } from "frames.js/next";
-import { FrameInput } from "frames.js/next/server";
 
 const frames = createFrames();
 const handleRequest = frames(async (payload) => {
@@ -69,20 +68,17 @@ const handleRequest = frames(async (payload) => {
               </div>
             </div>
           ),
-          buttons: [<HomeButton key="home" />],
+          buttons: [HomeButton],
+          textInput: undefined,
         };
       }
 
-      const { image, input, button } = await play(
-        message?.inputText!,
-        user,
-        game!
-      );
+      const { image, textInput, button } = await play(user, game!);
 
       return {
         image,
-        input,
         buttons: [button],
+        textInput: textInput || undefined,
       };
     }
 
@@ -154,7 +150,7 @@ const handleRequest = frames(async (payload) => {
               </div>
             </div>
           ),
-          input: <FrameInput text="Enter your email" />,
+          textInput: "Enter your email",
           buttons: [
             <Button action="post" target={`/play?&team=${team}`} key="create">
               Create wallet
@@ -191,7 +187,7 @@ const handleRequest = frames(async (payload) => {
               </div>
             </div>
           ),
-          buttons: [<PlayButton key="play" />],
+          buttons: [PlayButton],
         };
       }
     }
@@ -260,7 +256,7 @@ const handleRequest = frames(async (payload) => {
     console.error(e);
     return {
       image: `${HOST}/bg.jpg`,
-      buttons: [<HomeButton key="home" />],
+      buttons: [HomeButton],
     };
   }
 });
