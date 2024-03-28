@@ -1,3 +1,4 @@
+import { HomeButton, PlayButton } from "@/components/Buttons";
 import { HOST } from "@/consts";
 import { fdk } from "@/lib/fdk";
 import prisma from "@/lib/prisma";
@@ -67,14 +68,7 @@ const handleRequest = frames(async () => {
         </div>
       </div>
     ),
-    buttons: [
-      <Button action="post" target="/" key="home">
-        Home
-      </Button>,
-      <Button action="post" target="/play" key="play">
-        Play
-      </Button>,
-    ],
+    buttons: [<HomeButton key="home" />, <PlayButton key="play" />],
   };
 });
 

@@ -6,6 +6,7 @@ import { Chess } from "chess.js";
 import { Button } from "frames.js/next";
 import { FrameInput } from "frames.js/next/server";
 import { votesScreen } from "./votes";
+import { HomeButton } from "@/components/Buttons";
 
 export const play = async (move: string, user: User | null, gameP?: Game) => {
   let valid = false;
@@ -104,9 +105,7 @@ export const play = async (move: string, user: User | null, gameP?: Game) => {
           Vote
         </Button>
       ) : (
-        <Button action="post" target="/" key="home">
-          Home
-        </Button>
+        <HomeButton key="home" />
       ),
     };
 

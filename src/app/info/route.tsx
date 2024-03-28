@@ -1,18 +1,12 @@
+import { HomeButton, PlayButton } from "@/components/Buttons";
 import { HOST } from "@/consts";
-import { createFrames, Button } from "frames.js/next";
+import { createFrames } from "frames.js/next";
 
 const frames = createFrames();
 const handleRequest = frames(async () => {
   return {
     image: `${HOST}/info.png`,
-    buttons: [
-      <Button action="post" target="/" key="home">
-        Home
-      </Button>,
-      <Button action="post" target="/play" key="play">
-        Play
-      </Button>,
-    ],
+    buttons: [<HomeButton key="home" />, <PlayButton key="play" />],
   };
 });
 

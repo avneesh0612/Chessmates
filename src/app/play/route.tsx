@@ -10,6 +10,7 @@ import { Chess } from "chess.js";
 import { createFrames, Button } from "frames.js/next";
 import { getAddressForFid } from "frames.js";
 import { FrameInput } from "frames.js/next/server";
+import { HomeButton, PlayButton } from "@/components/Buttons";
 
 const frames = createFrames();
 const handleRequest = frames(async (payload) => {
@@ -69,11 +70,7 @@ const handleRequest = frames(async (payload) => {
               </div>
             </div>
           ),
-          buttons: [
-            <Button action="post" target="/" key="home">
-              Home
-            </Button>,
-          ],
+          buttons: [<HomeButton key="home" />],
         };
       }
 
@@ -195,11 +192,7 @@ const handleRequest = frames(async (payload) => {
               </div>
             </div>
           ),
-          buttons: [
-            <Button action="post" target="/play" key="play">
-              Start playing
-            </Button>,
-          ],
+          buttons: [<PlayButton key="play" />],
         };
       }
     }
@@ -268,11 +261,7 @@ const handleRequest = frames(async (payload) => {
     console.error(e);
     return {
       image: `${HOST}/bg.jpg`,
-      buttons: [
-        <Button action="post" target="/" key="home">
-          Home
-        </Button>,
-      ],
+      buttons: [<HomeButton key="home" />],
     };
   }
 });
