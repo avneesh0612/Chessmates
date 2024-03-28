@@ -1,5 +1,5 @@
-import { HOST, frame_id } from "@/consts";
-import { fdk } from "@/lib/fdk";
+import { HomeButton, PlayButton } from "@/components/Buttons";
+import { HOST } from "@/consts";
 import { FenImgGenerator } from "@/lib/fen-image-generator";
 import prisma from "@/lib/prisma";
 import { play } from "@/screens/play";
@@ -7,10 +7,9 @@ import { createEmbeddedWallet } from "@/utils/createEmbeddedWallet";
 import { mintNFT } from "@/utils/mintNFT";
 import { ChainEnum } from "@dynamic-labs/sdk-api/models/ChainEnum";
 import { Chess } from "chess.js";
-import { createFrames, Button } from "frames.js/next";
 import { getAddressForFid } from "frames.js";
+import { Button, createFrames } from "frames.js/next";
 import { FrameInput } from "frames.js/next/server";
-import { HomeButton, PlayButton } from "@/components/Buttons";
 
 const frames = createFrames();
 const handleRequest = frames(async (payload) => {

@@ -3,7 +3,7 @@ import { HOST } from "@/consts";
 import { fdk } from "@/lib/fdk";
 import prisma from "@/lib/prisma";
 import { frameMiddleWares } from "@/middleware/frameMiddlewares";
-import { Button, createFrames } from "frames.js/next";
+import { createFrames } from "frames.js/next";
 
 const frames = createFrames({
   middleware: frameMiddleWares,

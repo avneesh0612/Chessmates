@@ -2,7 +2,7 @@ import { HomeButton, PlayButton } from "@/components/Buttons";
 import { HOST } from "@/consts";
 import { fdk } from "@/lib/fdk";
 import prisma from "@/lib/prisma";
-import { Button, createFrames } from "frames.js/next";
+import { createFrames } from "frames.js/next";
 
 const users = await prisma.user.findMany({
   orderBy: {
