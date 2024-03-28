@@ -1,7 +1,6 @@
 import { FenImgGenerator } from "@/lib/fen-image-generator";
-import prisma from "@/lib/prisma";
 import { Chess } from "chess.js";
-import { FrameButton } from "frames.js/next/server";
+import { Button } from "frames.js/next";
 
 export const votesScreen = async (
   game: { id: string },
@@ -72,9 +71,9 @@ export const votesScreen = async (
     ),
     input: null,
     button: (
-      <FrameButton action="post" target="/frames?" key="home">
+      <Button action="post" target="/" key="home">
         Home
-      </FrameButton>
+      </Button>
     ),
   };
 };

@@ -1,21 +1,15 @@
-import prisma from "@/lib/prisma";
-import { Chess } from "chess.js";
-import { FrameButton, FrameInput } from "frames.js/next/server";
-import { FrameActionDataParsedAndHubContext } from "node_modules/frames.js/dist/types";
-import { votesScreen } from "./votes";
-import { Game, User } from "@prisma/client";
+import { HOST } from "@/consts";
 import { FenImgGenerator } from "@/lib/fen-image-generator";
+import prisma from "@/lib/prisma";
+import { Game, User } from "@prisma/client";
+import { Chess } from "chess.js";
+import { Button } from "frames.js/next";
+import { FrameInput } from "frames.js/next/server";
+import { votesScreen } from "./votes";
 
-export const play = async (
-  frameMessage: FrameActionDataParsedAndHubContext | null,
-  user: User | null,
-  gameP?: Game
-) => {
+export const play = async (move: string, user: User | null, gameP?: Game) => {
   let valid = false;
-  const move = frameMessage?.inputText;
   let game = gameP;
-
-  console.log("finding game");
 
   if (!game) {
     // @ts-ignore
@@ -36,17 +30,14 @@ export const play = async (
     (chess.turn() === "w" && user?.team === "white") ||
     (chess.turn() === "b" && user?.team === "black");
 
-  console.log("generating image");
-
   const svg = new FenImgGenerator().generate(chess.fen());
-  console.log("image generated");
 
   if (!move) {
     const info = {
       image: (
         <div
           style={{
-            backgroundImage: `url(${process.env.NEXT_PUBLIC_HOST}/bg.jpg)`,
+            backgroundImage: `url(${HOST}/bg.jpg)`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             color: "white",
@@ -99,7 +90,6 @@ export const play = async (
                 It&apos;s not your turn!
               </h4>
 
-              {/* the chance changes at every 10 mins GMT time so calculate according to that */}
               <p tw="px-20 text-center text-gray-200 text-[2rem]">
                 Come back in {10 - (new Date().getMinutes() % 10)} minutes to
                 play your turn
@@ -108,32 +98,29 @@ export const play = async (
           )}
         </div>
       ),
-      input: turn ? <FrameInput text="Move (eg-Ne7)" /> : null,
+      input: <FrameInput text="Move (eg-Ne7)" />,
       button: turn ? (
-        <FrameButton action="post" target="/frames?page=play" key="vote">
+        <Button action="post" target="/vote" key="vote">
           Vote
-        </FrameButton>
+        </Button>
       ) : (
-        <FrameButton action="post" target="/frames?" key="home">
+        <Button action="post" target="/" key="home">
           Home
-        </FrameButton>
+        </Button>
       ),
     };
 
     return info;
   }
 
-  console.log("finding vote");
   const vote1 = await prisma.vote.findFirst({
     where: {
-      userId: String(frameMessage?.requesterFid),
+      userId: String(user?.fid),
       gameId: game.id,
       valid: true,
       success: false,
     },
   });
-
-  console.log("vote found");
 
   if (move) {
     try {
@@ -149,7 +136,7 @@ export const play = async (
       data: {
         vote: move,
         gameId: game.id,
-        userId: String(frameMessage?.requesterFid),
+        userId: String(user?.fid),
       },
     });
 
@@ -165,7 +152,7 @@ export const play = async (
     image: (
       <div
         style={{
-          backgroundImage: `url(${process.env.NEXT_PUBLIC_HOST}/bg.jpg)`,
+          backgroundImage: `url(${HOST}/bg.jpg)`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           color: "white",
@@ -196,9 +183,9 @@ export const play = async (
     ),
     input: <FrameInput text="Move (eg-Ne7)" />,
     button: (
-      <FrameButton action="post" target="/frames?page=play" key="abc">
+      <Button action="post" target="/vote" key="vote">
         Vote
-      </FrameButton>
+      </Button>
     ),
   };
 };

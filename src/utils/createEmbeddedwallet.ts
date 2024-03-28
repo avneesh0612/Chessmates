@@ -6,7 +6,7 @@ configDotenv();
 
 const key = process.env.KEY;
 const environmentId = process.env.ENVIRONMENT_ID;
-let newWallets: string[];
+let newWallets: string[] | undefined;
 
 export const createEmbeddedWallet = async (
   email: string,

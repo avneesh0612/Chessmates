@@ -170,10 +170,10 @@ const main = async () => {
   }
 };
 
-export async function GET(request: Request) {
+export async function GET() {
   return main();
 }
 
-export async function POST(request: Request) {
+export async function POST() {
   return main();
 }
