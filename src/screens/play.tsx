@@ -1,14 +1,12 @@
+import { HomeButton } from "@/components/Buttons";
 import { HOST } from "@/consts";
 import { FenImgGenerator } from "@/lib/fen-image-generator";
 import prisma from "@/lib/prisma";
 import { Game, User } from "@prisma/client";
 import { Chess } from "chess.js";
 import { Button } from "frames.js/next";
-import { votesScreen } from "./votes";
-import { HomeButton } from "@/components/Buttons";
 
 export const play = async (user: User | null, gameP?: Game) => {
-  let valid = false;
   let game = gameP;
 
   if (!game) {
